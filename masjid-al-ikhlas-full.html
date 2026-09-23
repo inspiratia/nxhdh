@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Masjid Al Ikhlas - Program Rutin & Tabungan Qurban</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --c1: #4D52B4;
+    --c2: #4E9CE8;
+    --c3: #70D6C5;
+    --c4: #CAE5BC;
+    --c5: #E1EDD4;
+    --dark: #2c3e50;
+    --light: #f8fafb;
+    --accent: #ff6b6b;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    background:linear-gradient(135deg, var(--c5) 0%, #f0f4e8 100%);
+    color:var(--dark);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* Animated background elements */
+  .bg-animation{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-1;
+    pointer-events:none;
+    overflow:hidden;
+  }
+
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    opacity:0.15;
+    filter:blur(40px);
+    animation:blob-move 8s ease-in-out infinite;
+  }
+
+  .blob1{width:300px; height:300px; background:var(--c1); top:10%; right:5%; animation-delay:0s;}
+  .blob2{width:250px; height:250px; background:var(--c2); top:50%; left:10%; animation-delay:2s;}
+  .blob3{width:280px; height:280px; background:var(--c3); bottom:10%; right:15%; animation-delay:4s;}
+  .blob4{width:200px; height:200px; background:var(--c4); top:30%; left:50%; animation-delay:3s;}
+
+  @keyframes blob-move{
+    0%, 100%{transform:translate(0,0);}
+    25%{transform:translate(30px,-30px);}
+    50%{transform:translate(-20px,20px);}
+    75%{transform:translate(20px,30px);}
+  }
+
+  .floating-particle{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    animation:float 4s ease-in-out infinite;
+    pointer-events:none;
+  }
+
+  .p1{width:6px; height:6px; background:var(--c1); top:20%; left:15%; animation-delay:0s;}
+  .p2{width:8px; height:8px; background:var(--c2); top:40%; right:10%; animation-delay:0.5s;}
+  .p3{width:6px; height:6px; background:var(--c3); bottom:30%; left:20%; animation-delay:1s;}
+  .p4{width:7px; height:7px; background:var(--c4); top:60%; right:25%; animation-delay:1.5s;}
+  .p5{width:5px; height:5px; background:var(--c5); bottom:40%; right:30%; animation-delay:2s;}
+
+  @keyframes float{
+    0%, 100%{transform:translateY(0);}
+    50%{transform:translateY(-40px);}
+  }
+
+  .pulsar{
+    position:absolute;
+    border-radius:50%;
+    border:2px solid;
+    animation:pulse-ring 3s ease-out infinite;
+  }
+
+  .pul1{width:80px; height:80px; border-color:var(--c1); top:25%; right:20%; animation-delay:0s;}
+  .pul2{width:60px; height:60px; border-color:var(--c2); bottom:20%; left:15%; animation-delay:1s;}
+  .pul3{width:100px; height:100px; border-color:var(--c3); top:55%; left:30%; animation-delay:2s;}
+
+  @keyframes pulse-ring{
+    0%{transform:scale(1); opacity:1;}
+    100%{transform:scale(1.5); opacity:0;}
+  }
+
+  .header{
+    background:linear-gradient(135deg, var(--c1) 0%, var(--c2) 50%, var(--c3) 100%);
+    color:#fff;
+    padding:50px 20px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 30% 60%, rgba(255,255,255,0.2), transparent);
+    animation:shine 4s ease-in-out infinite;
+  }
+
+  @keyframes shine{
+    0%, 100%{opacity:0.5;}
+    50%{opacity:1;}
+  }
+
+  .header-content{
+    position:relative;
+    z-index:1;
+  }
+
+  .header h1{
+    font-family:'Fraunces', serif;
+    font-size:42px;
+    font-weight:700;
+    margin:0 0 10px;
+    animation:slideDown .8s ease;
+  }
+
+  .header p{
+    font-size:15px;
+    opacity:.95;
+    margin:0;
+    animation:fadeUp .8s ease .2s both;
+  }
+
+  @keyframes slideDown{
+    from{opacity:0; transform:translateY(-30px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .container{
+    max-width:700px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+
+  .section{
+    margin-bottom:60px;
+    animation:fadeInSection .8s ease backwards;
+  }
+
+  .section:nth-child(1){animation-delay:.2s;}
+  .section:nth-child(2){animation-delay:.4s;}
+  .section:nth-child(3){animation-delay:.6s;}
+  .section:nth-child(4){animation-delay:.8s;}
+  .section:nth-child(5){animation-delay:1s;}
+
+  @keyframes fadeInSection{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .section-header{
+    position:relative;
+    margin-bottom:30px;
+  }
+
+  .section-icon{
+    font-size:48px;
+    margin-bottom:12px;
+    display:inline-block;
+    animation:bounce-icon 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-icon{
+    0%, 100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+  }
+
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-size:32px;
+    font-weight:700;
+    margin:0 0 8px;
+    background:linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+
+  .section-subtitle{
+    font-size:14px;
+    color:var(--dark);
+    opacity:.7;
+    margin:0;
+  }
+
+  .section-line{
+    width:80px;
+    height:4px;
+    background:linear-gradient(90deg, var(--c1), var(--c3));
+    border-radius:2px;
+    margin-top:12px;
+  }
+
+  .hero-box{
+    background:linear-gradient(135deg, rgba(77,82,180,0.95), rgba(78,156,232,0.95));
+    border-radius:24px;
+    padding:40px 24px;
+    color:#fff;
+    margin:24px 0;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 50px -20px rgba(77,82,180,0.5);
+  }
+
+  .hero-box::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    right:-50%;
+    width:400px;
+    height:400px;
+    background:radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+    border-radius:50%;
+    animation:rotate 15s linear infinite;
+  }
+
+  @keyframes rotate{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+  }
+
+  .hero-box h2{
+    font-family:'Fraunces', serif;
+    font-size:36px;
+    font-weight:600;
+    margin:0 0 12px;
+    position:relative;
+    z-index:1;
+  }
+
+  .hero-box p{
+    font-size:15px;
+    line-height:1.7;
+    margin:0;
+    position:relative;
+    z-index:1;
+    opacity:.95;
+  }
+
+  .cards-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin:24px 0;
+  }
+
+  .card{
+    background:#fff;
+    border-radius:20px;
+    padding:22px 18px;
+    text-align:center;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,0.12);
+    transition:all .4s cubic-bezier(.2,.8,.2,1);
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    border:2px solid transparent;
+  }
+
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg, rgba(77,82,180,0.1), rgba(112,214,197,0.1));
+    opacity:0;
+    transition:opacity .4s;
+  }
+
+  .card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 16px 40px -12px rgba(0,0,0,0.15);
+    border-color:var(--c3);
+  }
+
+  .card:hover::before{opacity:1;}
+
+  .card-icon{
+    font-size:40px;
+    margin-bottom:14px;
+    display:inline-block;
+    animation:bobbing 2s ease-in-out infinite;
+    width:60px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:16px;
+    background:linear-gradient(135deg, var(--c1), var(--c2));
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .card:nth-child(2) .card-icon{background:linear-gradient(135deg, var(--c2), var(--c3));}
+  .card:nth-child(3) .card-icon{background:linear-gradient(135deg, var(--c3), var(--c4));}
+  .card:nth-child(4) .card-icon{background:linear-gradient(135deg, var(--c4), var(--c5));}
+  .card:nth-child(5) .card-icon{background:linear-gradient(135deg, var(--c1), var(--c3));}
+  .card:nth-child(6) .card-icon{background:linear-gradient(135deg, var(--c2), var(--c4));}
+
+  .card:nth-child(1) .card-icon{animation-delay:0s;}
+  .card:nth-child(2) .card-icon{animation-delay:.15s;}
+  .card:nth-child(3) .card-icon{animation-delay:.3s;}
+  .card:nth-child(4) .card-icon{animation-delay:.45s;}
+  .card:nth-child(5) .card-icon{animation-delay:.6s;}
+  .card:nth-child(6) .card-icon{animation-delay:.75s;}
+
+  @keyframes bobbing{
+    0%, 100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+
+  .card-title{
+    font-weight:700;
+    font-size:13px;
+    color:var(--dark);
+    margin:0 0 6px;
+  }
+
+  .card-desc{
+    font-size:11.5px;
+    color:var(--dark);
+    opacity:.65;
+    line-height:1.4;
+    margin:0;
+  }
+
+  .info-box{
+    background:linear-gradient(135deg, rgba(77,82,180,0.12), rgba(112,214,197,0.08));
+    border-left:4px solid var(--c1);
+    border-radius:16px;
+    padding:20px 18px;
+    margin:24px 0;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .info-box::after{
+    content:"";
+    position:absolute;
+    top:-50%;
+    right:-50%;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle, rgba(112,214,197,0.2), transparent);
+    border-radius:50%;
+    pointer-events:none;
+  }
+
+  .info-box h3{
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--c1);
+    margin:0 0 8px;
+    position:relative;
+    z-index:1;
+  }
+
+  .info-box p{
+    font-size:13px;
+    color:var(--dark);
+    line-height:1.6;
+    margin:0;
+    position:relative;
+    z-index:1;
+  }
+
+  .feature-list{
+    list-style:none;
+    margin:20px 0;
+    padding:0;
+  }
+
+  .feature-list li{
+    font-size:13px;
+    color:var(--dark);
+    margin-bottom:12px;
+    padding-left:28px;
+    position:relative;
+    line-height:1.5;
+  }
+
+  .feature-list li::before{
+    content:"✓";
+    position:absolute;
+    left:0;
+    color:var(--c2);
+    font-weight:800;
+    font-size:16px;
+  }
+
+  .highlight-box{
+    background:linear-gradient(135deg, var(--c4) 0%, var(--c5) 100%);
+    border-radius:20px;
+    padding:24px;
+    margin:24px 0;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .highlight-box::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 100% 0%, rgba(255,255,255,0.3), transparent);
+    pointer-events:none;
+  }
+
+  .highlight-box h3{
+    font-weight:700;
+    font-size:16px;
+    color:var(--c1);
+    margin:0 0 12px;
+    position:relative;
+    z-index:1;
+  }
+
+  .highlight-box p{
+    font-size:14px;
+    color:var(--dark);
+    margin:0;
+    line-height:1.6;
+    position:relative;
+    z-index:1;
+  }
+
+  .step-group{
+    background:#fff;
+    border-radius:18px;
+    padding:24px;
+    margin:24px 0;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,0.1);
+  }
+
+  .step{
+    display:flex;
+    gap:16px;
+    margin-bottom:18px;
+    position:relative;
+  }
+
+  .step:last-child{margin-bottom:0;}
+
+  .step::before{
+    content:"";
+    position:absolute;
+    left:20px;
+    top:50px;
+    width:2px;
+    height:calc(100% + 18px);
+    background:linear-gradient(180deg, var(--c2), transparent);
+    opacity:.3;
+  }
+
+  .step:last-child::before{display:none;}
+
+  .step-num{
+    flex-shrink:0;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--c1), var(--c2));
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:16px;
+    position:relative;
+    z-index:2;
+    animation:slideIn .6s ease backwards;
+  }
+
+  .step:nth-child(1) .step-num{animation-delay:0s;}
+  .step:nth-child(2) .step-num{animation-delay:.1s;}
+  .step:nth-child(3) .step-num{animation-delay:.2s;}
+  .step:nth-child(4) .step-num{animation-delay:.3s;}
+  .step:nth-child(5) .step-num{animation-delay:.4s;}
+  .step:nth-child(6) .step-num{animation-delay:.5s;}
+  .step:nth-child(7) .step-num{animation-delay:.6s;}
+
+  @keyframes slideIn{
+    from{opacity:0; transform:translateX(-20px);}
+    to{opacity:1; transform:translateX(0);}
+  }
+
+  .step-text p{
+    font-size:13px;
+    color:var(--dark);
+    line-height:1.6;
+    margin:0 0 4px;
+  }
+
+  .step-text .label{
+    font-size:11px;
+    color:var(--c2);
+    font-weight:700;
+    text-transform:uppercase;
+  }
+
+  .bank-box{
+    background:linear-gradient(135deg, var(--c2), var(--c3));
+    border-radius:18px;
+    padding:24px;
+    color:#fff;
+    margin:24px 0;
+    box-shadow:0 12px 32px -12px rgba(78,156,232,0.5);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .bank-box::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    right:-50%;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle, rgba(255,255,255,0.15), transparent);
+    border-radius:50%;
+  }
+
+  .bank-content{
+    position:relative;
+    z-index:1;
+  }
+
+  .bank-label{
+    font-size:12px;
+    opacity:.85;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .bank-num{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:2px;
+    margin-bottom:8px;
+    font-family:monospace;
+  }
+
+  .bank-name{
+    font-size:13px;
+    opacity:.9;
+  }
+
+  .contact-group{
+    background:linear-gradient(135deg, var(--c1), var(--c3));
+    border-radius:18px;
+    padding:24px;
+    color:#fff;
+    margin:24px 0;
+    box-shadow:0 12px 32px -12px rgba(77,82,180,0.5);
+    text-align:center;
+  }
+
+  .contact-group strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:14px;
+  }
+
+  .contact-links{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .contact-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:10px 14px;
+    background:rgba(255,255,255,0.2);
+    border-radius:10px;
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    transition:all .3s;
+  }
+
+  .contact-link:hover, .contact-link:active{
+    background:rgba(255,255,255,0.35);
+    transform:scale(1.02);
+  }
+
+  /* FORM SECTION */
+  .form-section{
+    background:linear-gradient(135deg, rgba(112,214,197,0.1), rgba(202,229,188,0.08));
+    border-radius:24px;
+    padding:32px 24px;
+    margin:40px 0;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .form-section::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle, rgba(78,156,232,0.15), transparent);
+    border-radius:50%;
+  }
+
+  .form-header{
+    position:relative;
+    z-index:1;
+    margin-bottom:28px;
+  }
+
+  .form-icon{
+    font-size:56px;
+    margin-bottom:16px;
+    display:inline-block;
+    animation:pulse-icon 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-icon{
+    0%, 100%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+  }
+
+  .form-title{
+    font-family:'Fraunces', serif;
+    font-size:32px;
+    font-weight:700;
+    margin:0 0 8px;
+    background:linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+
+  .form-subtitle{
+    font-size:14px;
+    color:var(--dark);
+    opacity:.7;
+    margin:0;
+  }
+
+  .form-group{
+    margin-bottom:20px;
+    position:relative;
+    z-index:1;
+  }
+
+  .form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    color:var(--c1);
+    margin-bottom:8px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea{
+    width:100%;
+    padding:14px 16px;
+    border:2px solid #e0e8f0;
+    background:#fff;
+    border-radius:14px;
+    font-family:inherit;
+    font-size:14px;
+    color:var(--dark);
+    transition:all .3s;
+    appearance:none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus{
+    outline:none;
+    border-color:var(--c2);
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(78,156,232,0.15);
+  }
+
+  .form-group select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234D52B4' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position: right 14px center;
+    background-size:16px;
+    padding-right:38px;
+  }
+
+  .form-group textarea{resize:vertical; min-height:90px;}
+
+  .radio-group, .checkbox-group{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:18px;
+  }
+
+  .radio-item, .checkbox-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    border:2px solid #e0e8f0;
+    background:#fff;
+    border-radius:12px;
+    cursor:pointer;
+    transition:all .3s;
+  }
+
+  .radio-item:hover, .checkbox-item:hover{
+    border-color:var(--c3);
+    background:#f9fcfb;
+  }
+
+  .radio-item input, .checkbox-item input{
+    accent-color:var(--c2);
+    cursor:pointer;
+  }
+
+  .radio-item label, .checkbox-item label{
+    cursor:pointer;
+    font-size:13px;
+    font-weight:600;
+    margin:0;
+  }
+
+  .submit-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:700;
+    background:linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+    color:#fff;
+    cursor:pointer;
+    transition:all .4s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    box-shadow:0 12px 32px -12px rgba(77,82,180,0.5);
+    position:relative;
+    overflow:hidden;
+    z-index:1;
+    margin-top:24px;
+  }
+
+  .submit-btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation:shimmer-btn 2s infinite;
+  }
+
+  @keyframes shimmer-btn{
+    0%{left:-100%;}
+    100%{left:100%;}
+  }
+
+  .submit-btn:active{
+    transform:scale(0.97);
+  }
+
+  .error-msg{
+    display:none;
+    background:#ffe0e0;
+    color:#c41e1e;
+    font-size:13px;
+    padding:14px 16px;
+    border-radius:12px;
+    margin-top:16px;
+    text-align:center;
+    font-weight:600;
+    border-left:4px solid #c41e1e;
+    animation:shake-error .4s;
+  }
+
+  @keyframes shake-error{
+    0%, 100%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    75%{transform:translateX(5px);}
+  }
+
+  .divider{
+    height:3px;
+    background:linear-gradient(90deg, transparent, var(--c1) 20%, var(--c3) 80%, transparent);
+    margin:40px 0;
+    opacity:.4;
+    position:relative;
+  }
+
+  .divider::before{
+    content:"✦";
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    background:#f8fafb;
+    color:var(--c2);
+    font-size:12px;
+    padding:0 8px;
+  }
+
+  .quote{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:16px;
+    line-height:1.8;
+    color:var(--c1);
+    text-align:center;
+    margin:32px 0;
+    padding:28px 24px;
+    border-left:5px solid var(--c2);
+    border-right:5px solid var(--c3);
+    background:linear-gradient(135deg, rgba(77,82,180,0.08), rgba(112,214,197,0.08));
+    border-radius:12px;
+    position:relative;
+  }
+
+  .quote::before, .quote::after{
+    content:"„";
+    position:absolute;
+    font-size:48px;
+    color:var(--c2);
+    opacity:.3;
+  }
+
+  .quote::before{top:0; left:8px;}
+  .quote::after{content:"""; bottom:-8px; right:8px;}
+
+  .footer{
+    text-align:center;
+    padding:50px 20px;
+    background:linear-gradient(135deg, var(--c4), var(--c5));
+    color:var(--dark);
+    border-top:3px solid var(--c2);
+  }
+
+  .footer p{
+    margin:8px 0;
+    font-size:13px;
+  }
+
+  .footer-accent{
+    color:var(--c1);
+    font-weight:700;
+  }
+
+  @media (max-width:480px){
+    .cards-grid{grid-template-columns:1fr;}
+    .section-title{font-size:28px;}
+    .hero-box h2{font-size:28px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-animation">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="blob blob4"></div>
+  <div class="pulsar pul1"></div>
+  <div class="pulsar pul2"></div>
+  <div class="pulsar pul3"></div>
+  <div class="floating-particle p1"></div>
+  <div class="floating-particle p2"></div>
+  <div class="floating-particle p3"></div>
+  <div class="floating-particle p4"></div>
+  <div class="floating-particle p5"></div>
+</div>
+
+<div class="header">
+  <div class="header-content">
+    <h1>🕌 Masjid Al Ikhlas</h1>
+    <p>Jl. Ngagel Wasana 3, Surabaya</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SEDEKAH SUBUH -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">🍚</div>
+      <h2 class="section-title">Sedekah Subuh</h2>
+      <p class="section-subtitle">Program berkah setiap hari untuk jamaah masjid</p>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="hero-box">
+      <h2>Makan Bareng Berkah</h2>
+      <p>Setiap hari Senin sampai Kamis pukul bakda Maghrib, kami menyediakan makanan gratis untuk 100 orang jamaah. Mari bersama merayakan berkah rezeki dan mempererat silaturahmi.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🍲</div>
+        <p class="card-title">MBG<br>Makan Bareng Gratis</p>
+        <p class="card-desc">Setiap Senin sampai Kamis bakda Maghrib • 100 Porsi/Hari</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <p class="card-title">Berbagi<br>Nasi Jumat</p>
+        <p class="card-desc">Setiap hari Jumat untuk disebarkan ke jemaat</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <p class="card-title">Kajian Rutin<br>Bakda Maghrib</p>
+        <p class="card-desc">Sebulan 3x pertemuan ilmu agama</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👶</div>
+        <p class="card-title">Ngaji Tahsin<br>untuk Bapak-bapak</p>
+        <p class="card-desc">Setiap hari Selasa bakda Isha</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🥧</div>
+        <p class="card-title">Berbagi<br>Kue / Snack</p>
+        <p class="card-desc">Setiap hari untuk didistribusikan</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✨</div>
+        <p class="card-title">Baca Al Qur'an<br>plus Makna</p>
+        <p class="card-desc">Setiap hari Kamis bakda Maghrib</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h3>💚 Nilai Sedekah</h3>
+      <p>Mari bersama memakmuran masjid, meraih ilmu dan pahala tanpa henti. Setiap sumbangan, sekecil apapun, adalah amanah untuk kebaikan bersama.</p>
+    </div>
+
+    <div class="bank-box">
+      <div class="bank-content">
+        <div class="bank-label">💳 Support Kegiatan via BCA Syariah</div>
+        <div class="bank-num">0050156611</div>
+        <div class="bank-name">Infaq Masjid Al Ikhlas Ngagel</div>
+      </div>
+    </div>
+
+    <div class="contact-group">
+      <strong>📱 Info Program Sedekah Subuh</strong>
+      <div class="contact-links">
+        <a href="https://wa.me/6281216392816" class="contact-link">🔗 Hubungi Kami - 0812-1639-2816</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WiFi GRATIS -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">📶</div>
+      <h2 class="section-title">WiFi Gratis</h2>
+      <p class="section-subtitle">Internet berkualitas untuk seluruh jamaah</p>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="hero-box" style="background:linear-gradient(135deg, rgba(78,156,232,0.95), rgba(112,214,197,0.95));">
+      <h2>Internet Gratis di Masjid</h2>
+      <p>Koneksi internet stabil dan cepat untuk keperluan jamaah. Gunakan dengan bijak untuk hal-hal yang bermanfaat dan berkah.</p>
+    </div>
+
+    <div class="highlight-box">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div>
+          <h3 style="margin:0 0 8px; font-size:14px; color:var(--c2);">🌐 SSID</h3>
+          <p style="margin:0; font-size:18px; font-weight:800; color:var(--dark);">Al Ikhlas</p>
+        </div>
+        <div>
+          <h3 style="margin:0 0 8px; font-size:14px; color:var(--c2);">🔐 Password</h3>
+          <p style="margin:0; font-size:18px; font-weight:800; color:var(--dark);">Amanah02</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box" style="border-left-color:var(--c2);">
+      <h3>💡 Etika Penggunaan WiFi</h3>
+      <ul class="feature-list">
+        <li>Gunakan untuk keperluan positif dan produktif</li>
+        <li>Jaga koneksi untuk semua jamaah</li>
+        <li>Hindari konten yang tidak sesuai syariat Islam</li>
+        <li>Amanah dalam penggunaan bandwidth bersama</li>
+      </ul>
+    </div>
+
+    <div class="contact-group" style="background:linear-gradient(135deg, var(--c2), var(--c3));">
+      <strong>📱 Pertanyaan Teknis?</strong>
+      <div class="contact-links">
+        <a href="https://wa.me/6281216392816" class="contact-link">🔗 Hubungi Pengelola - 0812-1639-2816</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- KAJIAN RUTIN -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">📖</div>
+      <h2 class="section-title">Kajian Rutin Bulanan</h2>
+      <p class="section-subtitle">Tingkatkan ilmu agama bersama ustadz terpercaya</p>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="hero-box" style="background:linear-gradient(135deg, rgba(112,214,197,0.95), rgba(78,156,232,0.95));">
+      <h2>Perkaya Ilmu Agama</h2>
+      <p>Setiap bulan kami mengadakan kajian kitab dengan metode yang mudah dipahami. Terbuka untuk umum, gratis, tempat terpisah untuk ikhwan dan akhwat.</p>
+    </div>
+
+    <div class="step-group">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <p class="label">Senin Pekan Ke-1 • Bakda Maghrib</p>
+          <p><strong>Aqidah Wassitiyyah</strong><br>Bersama Ustadz Bangun Samudra</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <p class="label">Jumat Pekan Ke-3 • Bakda Maghrib</p>
+          <p><strong>Aqidah Wassitiyyah</strong><br>Bersama Ustadz Bangun Samudra</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <p class="label">Senin Pekan Terakhir • Bakda Maghrib</p>
+          <p><strong>Riyadhus Sholihin</strong><br>Bersama Ustadz Abu Hasan</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box" style="border-left-color:var(--c3);">
+      <h3>⏰ Waktu Kajian - Bakda Maghrib</h3>
+      <p><em>"Barang siapa menempuh jalan untuk mencari ilmu, maka Allah mudahkan baginya jalan menuju surga."</em> <strong>(HR. Muslim)</strong></p>
+    </div>
+
+    <div class="highlight-box" style="background:linear-gradient(135deg, rgba(202,229,188,0.8), rgba(225,237,212,0.8));">
+      <h3 style="text-align:center; color:var(--c1);">📢 Informasi Penting</h3>
+      <p style="text-align:center; margin:0;"><strong>TERBUKA UNTUK UMUM • GRATIS • IKHWAN & AKHWAT TEMPAT TERPISAH</strong></p>
+    </div>
+
+    <div class="contact-group" style="background:linear-gradient(135deg, var(--c3), var(--c4));">
+      <strong>📱 Info & Daftar Kajian</strong>
+      <div class="contact-links">
+        <a href="https://wa.me/6281216392816" class="contact-link">🔗 Hubungi Kami - 0812-1639-2816</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TABUNGAN QURBAN FORM -->
+  <section class="section">
+    <div class="form-section">
+      <div class="form-header">
+        <div class="form-icon">🐐</div>
+        <h2 class="form-title">Tabungan Qurban</h2>
+        <p class="form-subtitle">Menabung hari ini, mudah berqurban nanti</p>
+      </div>
+
+      <div class="hero-box">
+        <h2>Mudah Berqurban Bersama</h2>
+        <p>Tabungan qurban yang terbuka untuk umum, dikelola langsung oleh Takmir Masjid Al Ikhlas dengan transparan dan amanah. Hewan kurban pilihan dari daerah terbaik.</p>
+      </div>
+
+      <div class="step-group">
+        <div class="step" style="margin-bottom:16px;">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <p><strong>Daftar & Isi Formulir</strong> pendaftaran dengan lengkap dan benar</p>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:16px;">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <p><strong>Setor Rutin</strong> via transfer ke rekening khusus Qurban Masjid Al Ikhlas</p>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:16px;">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <p><strong>Dana Bisa Diambil</strong> oleh Ketakmiran Masjid sesuai jadwal</p>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:16px;">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <p><strong>Pantau Berkala</strong> perkembangan & kondisi hewan kurban</p>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:16px;">
+          <div class="step-num">5</div>
+          <div class="step-text">
+            <p><strong>Fleksibel Hewan</strong> pilih 1 kambing atau 1/7 sapi</p>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:16px;">
+          <div class="step-num">6</div>
+          <div class="step-text">
+            <p><strong>Kelebihan Dana</strong> dikembalikan 100% jika tidak terpakai</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-text">
+            <p><strong>Lunasi Kekurangan</strong> sebelum Idul Adha sesuai jadwal</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box" style="border-left-color:var(--c2); background:linear-gradient(135deg, rgba(78,156,232,0.12), rgba(112,214,197,0.08));">
+        <h3>✨ Keuntungan Tabungan Qurban</h3>
+        <ul class="feature-list">
+          <li>Terbuka untuk seluruh masyarakat</li>
+          <li>Dikelola langsung oleh Takmir Masjid Al Ikhlas</li>
+          <li>Hewan kurban sehat dan layak berkurban</li>
+          <li>Proses mudah, transparan, dan amanah</li>
+          <li>Update kondisi sapi setiap bulan</li>
+          <li>Dokumentasi lengkap & terverifikasi</li>
+          <li>Jaminan kualitas & kesehatan hewan</li>
+        </ul>
+      </div>
+
+      <form id="qurbanForm">
+        <h3 style="color:var(--c1); font-size:16px; margin:24px 0 16px; font-weight:700;">📋 Form Pendaftaran</h3>
+
+        <div class="form-group">
+          <label>Nama Lengkap (sesuai KTP) *</label>
+          <input type="text" id="namaLengkap" placeholder="Contoh: Muhammad Rizky" required>
+        </div>
+
+        <div class="form-group">
+          <label>Nomor WhatsApp Aktif *</label>
+          <input type="text" id="noWa" placeholder="08xxxxxxxxxx" required>
+        </div>
+
+        <div class="form-group">
+          <label>Alamat Domisili *</label>
+          <textarea id="alamat" placeholder="Tulis alamat lengkap tempat tinggal" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Niat Qurban Atas Nama *</label>
+          <input type="text" id="niatUntuk" placeholder="Contoh: Diri sendiri / Ayah / Keluarga" required>
+        </div>
+
+        <div class="form-group">
+          <label>Pilih Jenis Hewan Qurban *</label>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input type="radio" id="kambing" name="hewan" value="Kambing (1 ekor utuh)" required>
+              <label for="kambing">🐐 Kambing - 1 ekor untuk 1 orang/keluarga</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="sapi" name="hewan" value="Sapi (1/7 bagian)" required>
+              <label for="sapi">🐄 Sapi - Patungan 1/7 bagian</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nominal Setoran Rutin *</label>
+          <input type="text" id="nominalSetoran" placeholder="Contoh: Rp 300.000 / bulan" required>
+        </div>
+
+        <div class="form-group">
+          <label>Metode Pembayaran *</label>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input type="radio" id="transfer" name="metode" value="Transfer Bank" required>
+              <label for="transfer">💳 Transfer Bank</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="setorantunai" name="metode" value="Setor Tunai di Masjid" required>
+              <label for="setorantunai">💰 Setor Tunai di Masjid</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Persetujuan Akad *</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="setuju" required>
+              <label for="setuju">Saya menyetujui akad tabungan qurban dan memahami kelebihan dana akan dikembalikan 100%</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Catatan Tambahan (opsional)</label>
+          <textarea id="catatan" placeholder="Contoh: ingin patungan bersama keluarga, ada kebutuhan khusus, dll"></textarea>
+        </div>
+
+        <div class="error-msg" id="errorMsg">⚠️ Mohon lengkapi semua field yang bertanda *</div>
+
+        <button type="submit" class="submit-btn">
+          <span>📱 Daftar Tabungan Qurban via WhatsApp</span>
+        </button>
+      </form>
+
+      <div class="bank-box" style="background:linear-gradient(135deg, var(--c2), var(--c3)); margin-top:28px;">
+        <div class="bank-content">
+          <div class="bank-label">💳 Rekening Tabungan Qurban</div>
+          <div class="bank-num">0050156686</div>
+          <div class="bank-name">an. Qurban Masjid Al Ikhlas Ngagel</div>
+        </div>
+      </div>
+
+      <div class="contact-group" style="background:linear-gradient(135deg, var(--c1), var(--c3)); margin-top:24px;">
+        <strong>📱 Info & Pendaftaran Hub</strong>
+        <div class="contact-links">
+          <a href="https://wa.me/6281232625568" class="contact-link">1️⃣ Ibu Dyah - 0812-3262-568</a>
+          <a href="https://wa.me/6281216392816" class="contact-link">2️⃣ Rusdi - 0812-1639-2816</a>
+        </div>
+      </div>
+
+      <div class="quote">
+        Bersama Menabung, Bersama Berbagi, Bersama Meraih Pahala
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <p class="footer-accent">© 2024 Masjid Al Ikhlas</p>
+  <p>Jl. Ngagel Wasana 3, Surabaya</p>
+  <p style="font-size:12px; opacity:.7;">Semoga berkah dan makmur untuk semua jamaah serta umat Islam Indonesia</p>
+</div>
+
+<script>
+  const form = document.getElementById('qurbanForm');
+  const errorMsg = document.getElementById('errorMsg');
+  const waNumber = "6281216392816";
+  const SHEET_URL = "https://script.google.com/macros/s/GANTI_DENGAN_ID_DEPLOYMENT_ANDA/exec";
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const namaLengkap = document.getElementById('namaLengkap').value.trim();
+    const noWa = document.getElementById('noWa').value.trim();
+    const alamat = document.getElementById('alamat').value.trim();
+    const niatUntuk = document.getElementById('niatUntuk').value.trim();
+    const hewan = document.querySelector('input[name="hewan"]:checked')?.value || "";
+    const nominalSetoran = document.getElementById('nominalSetoran').value.trim();
+    const metode = document.querySelector('input[name="metode"]:checked')?.value || "";
+    const setuju = document.getElementById('setuju').checked;
+    const catatan = document.getElementById('catatan').value.trim() || "-";
+
+    if(!namaLengkap || !noWa || !alamat || !niatUntuk || !hewan || !nominalSetoran || !metode || !setuju){
+      errorMsg.style.display = "block";
+      errorMsg.scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+
+    errorMsg.style.display = "none";
+
+    const payload = {
+      namaLengkap, noWa, alamat, niatUntuk, hewan, nominalSetoran, metode, setuju, catatan
+    };
+
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalLabel = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = "⏳ Mengirim...";
+
+    fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload)
+    }).catch(err => console.warn("Kirim ke Sheets:", err)).finally(() => {
+      const pesan =
+`*PENDAFTARAN TABUNGAN QURBAN - MASJID AL IKHLAS*
+
+👤 Nama Lengkap: ${namaLengkap}
+📱 No. WhatsApp: ${noWa}
+📍 Alamat: ${alamat}
+🕋 Niat Qurban Atas Nama: ${niatUntuk}
+🐐 Jenis Hewan: ${hewan}
+💰 Rencana Setoran: ${nominalSetoran}
+🏦 Metode Pembayaran: ${metode}
+✅ Persetujuan Akad: ${setuju ? 'Ya, setuju' : 'Tidak'}
+📝 Catatan: ${catatan}`;
+
+      const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)}`;
+      window.open(url, '_blank');
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalLabel;
+      form.reset();
+
+      setTimeout(() => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }, 500);
+    });
+  });
+</script>
+
+</body>
+</html>
