@@ -1,3 +1,45 @@
+<!--
+================================================================================
+  WEBSITE MASJID AL IKHLAS - FULL EDITION
+================================================================================
+
+INSTRUKSI SETUP VIDEO DARI GITHUB:
+
+1. BUAT REPOSITORY GITHUB:
+   - Buat repository baru: github.com/USERNAME/masjid-al-ikhlas
+   - Atau gunakan repository yang sudah ada
+
+2. UPLOAD VIDEO FILE (v.mp4):
+   - Buat folder "assets" di repository
+   - Upload file v.mp4 ke folder assets/
+   - Path akan menjadi: assets/v.mp4
+
+3. GANTI URL DI HALAMAN INI:
+   - Cari: <source src="https://raw.githubusercontent.com/USERNAME/REPO-NAME/main/assets/v.mp4"
+   - Ganti USERNAME dengan username GitHub Anda
+   - Ganti REPO-NAME dengan nama repository Anda
+   - Contoh jika username: "panitia-masjid" dan repo: "website-masjid"
+   - Menjadi: https://raw.githubusercontent.com/panitia-masjid/website-masjid/main/assets/v.mp4
+
+4. DEPLOY KE VERCEL:
+   - Connect repository GitHub ke Vercel
+   - Atau push file masjid-al-ikhlas-full.html ke repo
+   - Vercel akan auto-deploy dan beri URL publik
+
+5. CONTOH STRUKTUR REPOSITORY:
+   masjid-al-ikhlas/
+   ├── index.html (file ini, rename jadi index.html)
+   ├── README.md
+   └── assets/
+       └── v.mp4
+
+BONUS TIP:
+- Jika v.mp4 lebih besar, compress dengan: ffmpeg -i v.mp4 -vcodec h264 -b:v 1000k v-compressed.mp4
+- Atau upload ke YouTube dan embed iframenya (lebih stabil)
+
+================================================================================
+-->
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -158,6 +200,35 @@
   .section{
     margin-bottom:60px;
     animation:fadeInSection .8s ease backwards;
+  }
+
+  .video-section{
+    margin-top:40px;
+    margin-bottom:40px;
+  }
+
+  .video-wrapper{
+    position:relative;
+    width:100%;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 20px 50px -20px rgba(78,156,232,0.5);
+    background:#000;
+  }
+
+  .video-wrapper video{
+    display:block;
+    width:100%;
+    height:auto;
+    background:#000;
+  }
+
+  .video-caption{
+    text-align:center;
+    font-size:13px;
+    color:var(--dark);
+    margin:14px 0 0;
+    font-weight:600;
   }
 
   .section:nth-child(1){animation-delay:.2s;}
@@ -521,12 +592,12 @@
   }
 
   .bank-box{
-    background:linear-gradient(135deg, var(--c2), var(--c3));
-    border-radius:18px;
-    padding:24px;
+    background:linear-gradient(135deg, #5eb8d8 0%, #70d6c5 100%);
+    border-radius:24px;
+    padding:28px 24px;
     color:#fff;
-    margin:24px 0;
-    box-shadow:0 12px 32px -12px rgba(78,156,232,0.5);
+    margin:28px 0;
+    box-shadow:0 16px 40px -12px rgba(78,156,232,0.4);
     position:relative;
     overflow:hidden;
   }
@@ -534,12 +605,13 @@
   .bank-box::before{
     content:"";
     position:absolute;
-    top:-50%;
-    right:-50%;
-    width:300px;
-    height:300px;
+    top:-40%;
+    right:-40%;
+    width:280px;
+    height:280px;
     background:radial-gradient(circle, rgba(255,255,255,0.15), transparent);
     border-radius:50%;
+    pointer-events:none;
   }
 
   .bank-content{
@@ -570,25 +642,26 @@
   }
 
   .contact-group{
-    background:linear-gradient(135deg, var(--c1), var(--c3));
-    border-radius:18px;
-    padding:24px;
+    background:linear-gradient(135deg, #5d7ec9 0%, #70d6c5 100%);
+    border-radius:24px;
+    padding:28px 24px;
     color:#fff;
-    margin:24px 0;
-    box-shadow:0 12px 32px -12px rgba(77,82,180,0.5);
+    margin:28px 0;
+    box-shadow:0 16px 40px -12px rgba(77,82,180,0.4);
     text-align:center;
   }
 
   .contact-group strong{
     display:block;
-    font-size:14px;
-    margin-bottom:14px;
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:16px;
   }
 
   .contact-links{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
   }
 
   .contact-link{
@@ -596,19 +669,21 @@
     align-items:center;
     justify-content:center;
     gap:8px;
-    padding:10px 14px;
+    padding:14px 18px;
     background:rgba(255,255,255,0.2);
-    border-radius:10px;
+    border-radius:14px;
     color:#fff;
     text-decoration:none;
     font-size:13px;
     font-weight:700;
-    transition:all .3s;
+    transition:all .3s ease;
+    backdrop-filter:blur(4px);
   }
 
   .contact-link:hover, .contact-link:active{
-    background:rgba(255,255,255,0.35);
-    transform:scale(1.02);
+    background:rgba(255,255,255,0.3);
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
   }
 
   /* FORM SECTION */
@@ -686,15 +761,22 @@
   .form-group select,
   .form-group textarea{
     width:100%;
-    padding:14px 16px;
-    border:2px solid #e0e8f0;
+    padding:16px 18px;
+    border:2px solid #e8eff7;
     background:#fff;
-    border-radius:14px;
+    border-radius:16px;
     font-family:inherit;
     font-size:14px;
     color:var(--dark);
-    transition:all .3s;
+    transition:all .3s ease;
     appearance:none;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .form-group input::placeholder,
+  .form-group select::placeholder,
+  .form-group textarea::placeholder{
+    color:#a8b8c8;
   }
 
   .form-group input:focus,
@@ -703,7 +785,7 @@
     outline:none;
     border-color:var(--c2);
     background:#fff;
-    box-shadow:0 0 0 4px rgba(78,156,232,0.15);
+    box-shadow:0 0 0 5px rgba(78,156,232,0.12), 0 4px 12px rgba(78,156,232,0.15);
   }
 
   .form-group select{
@@ -727,52 +809,67 @@
     display:flex;
     align-items:center;
     gap:12px;
-    padding:14px 16px;
-    border:2px solid #e0e8f0;
+    padding:16px 18px;
+    border:2px solid #e8eff7;
     background:#fff;
-    border-radius:12px;
+    border-radius:16px;
     cursor:pointer;
-    transition:all .3s;
+    transition:all .3s ease;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
   }
 
   .radio-item:hover, .checkbox-item:hover{
     border-color:var(--c3);
-    background:#f9fcfb;
+    background:#fff;
+    box-shadow:0 2px 12px rgba(112,214,197,0.12);
   }
 
   .radio-item input, .checkbox-item input{
     accent-color:var(--c2);
     cursor:pointer;
+    width:18px;
+    height:18px;
   }
 
   .radio-item label, .checkbox-item label{
     cursor:pointer;
-    font-size:13px;
+    font-size:14px;
     font-weight:600;
     margin:0;
+    color:var(--c1);
   }
 
   .submit-btn{
     width:100%;
-    padding:16px;
+    padding:18px;
     border:none;
-    border-radius:14px;
+    border-radius:16px;
     font-family:inherit;
     font-size:15px;
-    font-weight:700;
-    background:linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
+    font-weight:800;
+    background:linear-gradient(135deg, #5d7ec9 0%, #5eb8d8 50%, #70d6c5 100%);
     color:#fff;
     cursor:pointer;
-    transition:all .4s;
+    transition:all .4s ease;
     display:flex;
     align-items:center;
     justify-content:center;
     gap:8px;
-    box-shadow:0 12px 32px -12px rgba(77,82,180,0.5);
+    box-shadow:0 16px 40px -12px rgba(77,82,180,0.4);
     position:relative;
     overflow:hidden;
     z-index:1;
-    margin-top:24px;
+    margin-top:28px;
+    letter-spacing:.3px;
+  }
+
+  .submit-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 20px 50px -12px rgba(77,82,180,0.5);
+  }
+
+  .submit-btn:active{
+    transform:scale(0.98);
   }
 
   .submit-btn::before{
@@ -838,46 +935,58 @@
   .quote{
     font-family:'Fraunces', serif;
     font-style:italic;
-    font-size:16px;
-    line-height:1.8;
-    color:var(--c1);
+    font-size:18px;
+    line-height:1.85;
+    color:#5d7ec9;
     text-align:center;
-    margin:32px 0;
-    padding:28px 24px;
-    border-left:5px solid var(--c2);
-    border-right:5px solid var(--c3);
-    background:linear-gradient(135deg, rgba(77,82,180,0.08), rgba(112,214,197,0.08));
-    border-radius:12px;
+    margin:36px 0;
+    padding:32px 28px;
+    border-left:5px solid #5d7ec9;
+    border-right:5px solid #70d6c5;
+    background:linear-gradient(135deg, rgba(93,126,201,0.08), rgba(112,214,197,0.08));
+    border-radius:16px;
     position:relative;
+    box-shadow:0 4px 16px rgba(0,0,0,0.05);
   }
 
   .quote::before, .quote::after{
-    content:"„";
+    content:""";
     position:absolute;
-    font-size:48px;
+    font-size:52px;
     color:var(--c2);
-    opacity:.3;
+    opacity:.25;
+    font-family:'Fraunces', serif;
   }
 
-  .quote::before{top:0; left:8px;}
-  .quote::after{content:"""; bottom:-8px; right:8px;}
+  .quote::before{top:-8px; left:12px;}
+  .quote::after{content:"""; bottom:-12px; right:12px;}
 
   .footer{
     text-align:center;
-    padding:50px 20px;
+    padding:40px 20px;
     background:linear-gradient(135deg, var(--c4), var(--c5));
     color:var(--dark);
-    border-top:3px solid var(--c2);
+    border-top:none;
   }
 
-  .footer p{
-    margin:8px 0;
-    font-size:13px;
-  }
-
-  .footer-accent{
-    color:var(--c1);
+  .footer-copyright{
+    font-size:14px;
     font-weight:700;
+    color:var(--c1);
+    margin-bottom:8px;
+  }
+
+  .footer-address{
+    font-size:13px;
+    color:var(--dark);
+    margin-bottom:16px;
+  }
+
+  .footer-tagline{
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.6;
+    opacity:.85;
   }
 
   @media (max-width:480px){
@@ -917,6 +1026,27 @@
 
 <div class="container">
 
+  <!-- VIDEO SECTION -->
+  <section class="section video-section">
+    <div class="video-wrapper">
+      <video 
+        id="masjidVideo"
+        controls 
+        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'%3E%3Crect fill='%234E9CE8' width='1280' height='720'/%3E%3C/svg%3E"
+        style="width:100%; height:auto; border-radius:20px; box-shadow:0 16px 40px -12px rgba(78,156,232,0.4);">
+        <!-- INSTRUKSI UPLOAD: Ganti URL di bawah dengan repository GitHub Anda -->
+        <!-- 1. Upload v.mp4 ke: github.com/USERNAME/REPO-NAME/blob/main/assets/v.mp4 -->
+        <!-- 2. Gunakan raw URL: https://raw.githubusercontent.com/USERNAME/REPO-NAME/main/assets/v.mp4 -->
+        <!-- 3. Ganti USERNAME dan REPO-NAME dengan milik Anda -->
+        <source src="https://raw.githubusercontent.com/USERNAME/REPO-NAME/main/assets/v.mp4" type="video/mp4">
+        Video Masjid Al Ikhlas - Browser Anda tidak mendukung video HTML5
+      </video>
+    </div>
+    <p class="video-caption">🎬 Profil & Kegiatan Masjid Al Ikhlas Ngagel Wasana, Surabaya</p>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- SEDEKAH SUBUH -->
   <section class="section">
     <div class="section-header">
@@ -928,7 +1058,7 @@
 
     <div class="hero-box">
       <h2>Makan Bareng Berkah</h2>
-      <p><video src="https://github.com/v.mp4">Setiap hari Senin sampai Kamis pukul bakda Maghrib, kami menyediakan makanan gratis untuk 100 orang jamaah. Mari bersama merayakan berkah rezeki dan mempererat silaturahmi.</p>
+      <p>Setiap hari Senin sampai Kamis pukul bakda Maghrib, kami menyediakan makanan gratis untuk 100 orang jamaah. Mari bersama merayakan berkah rezeki dan mempererat silaturahmi.</p>
     </div>
 
     <div class="cards-grid">
@@ -1266,10 +1396,10 @@
 
 </div>
 
-<div class="footer">
-  <p class="footer-accent">© 2024 Masjid Al Ikhlas</p>
-  <p>Jl. Ngagel Wasana 3, Surabaya</p>
-  <p style="font-size:12px; opacity:.7;">Semoga berkah dan makmur untuk semua jamaah serta umat Islam Indonesia</p>
+<div class="footer"><center>
+  <p class="footer-copyright">© 2024 Masjid Al Ikhlas</p>
+  <p class="footer-address">Jl. Ngagel Wasana 3, Surabaya</p>
+  <p class="footer-tagline">Semoga berkah dan makmur untuk semua jamaah serta umat Islam Indonesia</p></center>
 </div>
 
 <script>
